@@ -28,6 +28,5 @@ $stmt = $pdo->query($sql);
 while ($row = $stmt->fetch())
 {
     echo $row['name'] . "\n";
-}
-
+}adfasdf
 ?>
