@@ -1,32 +1,28 @@
-<?php
-// WARNING: This code is intentionally vulnerable and should be used only for educational or testing purposes.
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XSS 5</title>
+<link rel="shortcut icon" href="../Resources/hmbct.png" />
+</head>
+<body>
+    
+	 <div style="background-color:#c9c9c9;padding:15px;">
+      <button type="button" name="homeButton" onclick="location.href='../homepage.html';">Home Page</button>
+      <button type="button" name="mainButton" onclick="location.href='xssmainpage.html';">Main Page</button>
+    </div>
+<div align="center">
+<form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>" name="form">
+   <p>Your name:<input type="text" name="username"></p>
+   <input type="submit" name="submit" value="Submit">
+</form>
+    </div>
 
-$host = 'localhost';
-$db   = 'mydatabase';
-$user = 'root';
-$pass = 'password';
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+<?php 
+if (isset($_GET["username"])) {
+    $user = str_replace("<", "", $_GET["username"]);
+    echo "Your name is "."$user";
 }
+ ?>
 
-// Vulnerable code: Directly using user input in SQL query without sanitization or prepared statements.
-$id = $_GET['id']; // User input from URL parameter 'id'
-$sql = "SELECT * FROM users WHERE id = $id"; // This line is vulnerable to SQL injection
-$stmt = $pdo->query($sql);
-
-while ($row = $stmt->fetch())
-{
-    echo $row['name'] . "\n";
-}adfasdf
-?>
+</body>
+</html>
