@@ -8,9 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Psalm
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4' # Replace with your PHP version
+
+      - name: Install Composer dependencies
+        run: composer install --no-scripts --no-progress
+
+      - name: Initialize Psalm
+        run: vendor/bin/psalm --init
+
+      - name: Run Psalm
         uses: docker://ghcr.io/psalm/psalm-github-actions
         with:
           security_analysis: true
