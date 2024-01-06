@@ -2,7 +2,7 @@
     "name": "vendor-name/project-name",
     "description": "A brief description of your project",
     "require": {
-        "vimeo/psalm": "^4.0" // Ensure you use the latest version
+        "vimeo/psalm": "^5.x" // Ensure you use the latest version
     },
     "autoload": {
         "psr-4": {
