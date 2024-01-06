@@ -1,32 +1,27 @@
 <?php
-// WARNING: This code is intentionally vulnerable and should be used only for educational or testing purposes.
+session_start();
 
-$host = 'localhost';
-$db   = 'mydatabase';
-$user = 'root';
-$pass = 'password';
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+// Does IP Address match?
+if ($_SERVER['REMOTE_ADDR'] != $_SESSION['ipaddress'])
+{
+session_unset();
+session_destroy();
 }
 
-// Vulnerable code: Directly using user input in SQL query without sanitization or prepared statements.
-$id = $_GET['id']; // User input from URL parameter 'id'
-$sql = "SELECT * FROM users WHERE id = $id"; // This line is vulnerable to SQL injection
-$stmt = $pdo->query($sql);
-
-while ($row = $stmt->fetch())
+// Does user agent match?
+if ($_SERVER['HTTP_USER_AGENT'] != $_SESSION['useragent'])
 {
-    echo $row['name'] . "\n";
-}adfasdf
-?>
+  session_unset();
+  session_destroy();
+}
+
+// Is the last access over an hour ago?
+if (time() > ($_SESSION['lastaccess'] + 3600))
+{
+  session_unset();
+  session_destroy();
+}
+else
+{
+  $_SESSION['lastaccess'] = time();
+}
