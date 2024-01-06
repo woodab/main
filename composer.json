@@ -1,10 +1,9 @@
 {
-  "name": "aaronwood/main",
-  "authors": [
-    {
-      "name": "woodab",
-      "email": "101159550+woodab@users.noreply.github.com"
+  "name": "woodab/main",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "YourNamespace\\": "src/"
     }
-  ],
-  "require": {}
+  }
 }
