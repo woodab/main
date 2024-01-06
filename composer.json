@@ -2,9 +2,5 @@
     "name": "vendor-name/project-name",
     "description": "A brief description of your project",
     "require": {},
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    }
+    "App\\": "src/"
 }
