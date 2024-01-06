@@ -1,6 +1,0 @@
-{
-    "name": "vendor-name/project-name",
-    "description": "A brief description of your project",
-    "require": {},
-    "App\\": "src/"
-}
